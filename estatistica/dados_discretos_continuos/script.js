@@ -1,26 +1,21 @@
 const Utils = {
 
-    pedirOpc: function () {
-
-        return 3;
-
-    },
-
-    pedirDadosDisc: function (agrupados) {
+    getDadosDisc: function () {
 
         let dados = new Array();
-        let quant = 5;
 
         $(".field").each(function (index) {
-            let valor = $(this).val();
+            let valor = parseInt($(this).val());
             dados.push(valor);
         });
+
+        // console.log(dados);
 
         return dados;
 
     },
 
-    pedirDadosCont: function () {
+    getDadosCont: function () {
 
         let dados = new Array();
         let quantidadeClasses = 3;
@@ -120,21 +115,27 @@ const Dados = {
 
     discretosNaoAgrupados: function () {
         
-        let dados = Utils.pedirDadosDisc(agrupados=false);
-        console.log(`Dados: ${dados}`);
+        $(".row-2").hide();
+        $("#mostra_inputs").prop("disabled", true);
+
+        let dados = Utils.getDadosDisc(agrupados=false);
         dados.sort();
         let media = Utils.calcMediaDisc(agrupados=false, dados=dados);
         let variancia = Utils.calcVarianciaDisc(agrupados=false, dados=dados, media=media);
         let desvioPadrao = Math.sqrt(variancia);
-        console.log(`Rol: ${dados}`);
-        console.log(`Média: ${media.toFixed(1)}`);
-        console.log(`Desvio Padrão: ${desvioPadrao.toFixed(3)}`)
+        $("#rol").html(dados);
+        $("#media").html(media.toFixed(2));
+        $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+
+        $(".row-3").show();
+        $(".row-4").show();
+
 
     },
 
     discretosAgrupados: function () {
 
-        let dados = Utils.pedirDadosDisc(agrupados=true);
+        let dados = Utils.getDadosDisc(agrupados=true);
         let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
         let variancia = Utils.calcVarianciaDisc(agrupados=true, dados=dados, media=media);
         let desvioPadrao = Math.sqrt(variancia);
@@ -146,7 +147,7 @@ const Dados = {
 
     continuos: function () {
 
-        let dados = Utils.pedirDadosCont();
+        let dados = Utils.getDadosCont();
         let media = Utils.calcMediaCont(dados);
         let variancia = Utils.calcVarianciaCont(dados, media);
         let desvioPadrao = Math.sqrt(variancia);
@@ -159,10 +160,10 @@ const Dados = {
 }
 
 $(function(){
-	function mostra_inputs(quantidade){
-		var div = $(".valores-inputs")
-		for (var i = 0; i < quantidade; i++) {
-			var campo = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
+	function mostraInputs(quantidade){
+		let div = $(".valores-inputs")
+		for (let i = 0; i < quantidade; i++) {
+			let campo = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
 			$(div).append(campo);
 		}
 
@@ -171,13 +172,18 @@ $(function(){
 	}
 
 	$("#mostra_inputs").click(function(){
- 		var quantidade = $("#quantidade_nao_agrupado").val();
-		var quantidade_atual = $(".field").length;
+ 		let quantidade = $("#quantidade_nao_agrupado").val();
+		let quantidadeAtual = $(".field").length;
+        let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
 
-		if((parseInt(quantidade_atual) + parseInt(quantidade)) <= 100){
-			mostra_inputs(quantidade);
-		}else{
-			alert("O n�mero m�ximo de valores � 100.")
+        // console.log(quantidadeTotal);
+
+		if(quantidadeTotal > 100) {
+			alert("O número máximo de valores é 100.");
+		} else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
+            alert("Valor inválido! Tente outro valor.");
+        } else {
+			mostraInputs(quantidade);
 		}
 	})
 })
