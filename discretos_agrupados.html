@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Dados Discretos e ContÌnuos</title>
+	<title>Dados Discretos e Cont√≠nuos</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
@@ -17,7 +17,7 @@
 		<button type="button" class="btn btn-primary" id="voltar">Voltar</button>
 	</div>
 	<div class="container">
-	    <div class="row">
+	    <div class="row row-1">
 	        <div class="col-sm-12 my-auto label">
             	<label for="quantidade_nao_agrupado">Quantidade</label>
 	            <div class="w-25 inputs text-center">
@@ -45,37 +45,28 @@
 		<div class="row row-3">
 			<div class="col-sm-12 my-auto label">
 				<div class="row">
-					<div class="col"></div>
 					<div class="col">
-						<center>
-		        			<label for="valores">Rol</label>
-							<div class="col w-25 border text-center output" id="rol">
-								Ai papai
-							</div>
-						</center>
-					</div>
-					<div class="col"></div>
-				</div>
-				<div class="row">
-					<div class="col"></div>
-					<div class="col">
-						<center>
-		        			<label for="valores">MÈdia</label>
-							<div class="col w-25 border text-center output" id="media">
-								Ai papai
-							</div>
-						</center>
+						<table name="table-xifi" class="table table-striped table-bordered table-hover">
+							<thead>
+								<th>Xi</th>
+								<th>Fi</th>
+							</thead>
+							<tbody id="body_agrupados"></tbody>
+						</table>
 					</div>
 					<div class="col"></div>
 					<div class="col">
 						<center>
-		        			<label for="valores">Desvio Padr„o</label>
-							<div class="col w-25 border text-center output" id="desvio_padrao">
-								Ai papai
-							</div>
+		        			<label for="valores">M√©dia</label>
+							<div class="col w-25 border text-center output" id="media"></div>
 						</center>
 					</div>
-					<div class="col"></div>
+					<div class="col">
+						<center>
+		        			<label for="valores">Desvio Padr√£o</label>
+							<div class="col w-25 border text-center output" id="desvio_padrao"></div>
+						</center>
+					</div>
 				</div>
 			</div>
 		</div>

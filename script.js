@@ -1,15 +1,28 @@
 const Utils = {
 
-    getDadosDisc: function () {
+    getDadosDisc: function (agrupados) {
 
         let dados = new Array();
-
-        $(".field").each(function (index) {
-            let valor = parseInt($(this).val());
-            dados.push(valor);
-        });
-
-        // console.log(dados);
+        
+        if (!agrupados) {
+            $(".field").each(function (index) {
+                let valor = parseInt($(this).val());
+                dados.push(valor);
+            });
+        } else {
+            let arrXiFi = new Array();
+            $(".field").each(function (index) {
+                let valor = parseInt($(this).val());
+                if ($(this).hasClass("xi")) {
+                    arrXiFi.push(valor);
+                } else if ($(this).hasClass("fi")) {
+                    arrXiFi.push(valor);
+                    dados.push(arrXiFi);
+                    arrXiFi = new Array();
+                }
+            });
+            console.log(dados);
+        }
 
         return dados;
 
@@ -107,6 +120,36 @@ const Utils = {
 
         return soma / (soma_fi - 1)
 
+    },
+
+    printTabela: function(tipo, dados) {
+        let body;
+        let tr;
+        let td;
+        let trCount = 0;
+        if (tipo === "agrupados") {
+            body = $("#body_agrupados");
+            dados.forEach((grupo) => {
+                let count = 0;
+                grupo.forEach((valor) => {
+                    if (count === 0) {
+                        tr = `<tr id="tr_${trCount}"></tr>`;
+                        td = `<td>${valor}</td>`
+                        body.append(tr);
+                        $(`#tr_${trCount}`).append(td);
+                        count++;
+                    } else if (count === 1) {
+                        td = `<td>${valor}</td>`
+                        $(`#tr_${trCount}`).append(td);
+                        trCount++;
+                    }
+                });
+            });
+
+        } else if (tipo === "continuos") {
+
+        }
+
     }
 
 }
@@ -135,6 +178,7 @@ const Dados = {
 
     discretosAgrupados: function () {
 
+        $(".row-1").hide();
         $(".row-2").hide();
         $("#mostra_inputs").prop("disabled", true);
 
@@ -142,7 +186,8 @@ const Dados = {
         let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
         let variancia = Utils.calcVarianciaDisc(agrupados=true, dados=dados, media=media);
         let desvioPadrao = Math.sqrt(variancia);
-        console.log(dados);
+        
+        Utils.printTabela(tipo="agrupados", dados);
         $("#media").html(media.toFixed(2));
         $("#desvio_padrao").html(desvioPadrao.toFixed(3));
 
@@ -180,15 +225,15 @@ $(function(){
     function mostraInputsAgrupados(quantidade){
         let divValores = $(".valores-inputs");
         let j = $(".grupo").length;
-        console.log(j)
+        // console.log(j)
         for (let i = 0; i < quantidade; i++) {
             let divGrupo = `<div class='grupo' id='grupo${j}'></div><br>`;
 
             let labelValor = "<label for='valor' class='tag-label'>Xi</label>";
-            let campoValor = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
+            let campoValor = `<input type='number' id='valor_${i}' name='valor' class='field xi' max='100' min='1'>`;
 
             let labelFrequencia = "<label for='frequencia' class='tag-label'>Fi</label>";
-            let campoFrequencia = `<input type='number' id='frequencia_${i}' name='frequecia' class='field' max='100' min='1'>`;
+            let campoFrequencia = `<input type='number' id='frequencia_${i}' name='frequecia' class='field fi' max='100' min='1'>`;
 
             $(divValores).append(divGrupo);
 
