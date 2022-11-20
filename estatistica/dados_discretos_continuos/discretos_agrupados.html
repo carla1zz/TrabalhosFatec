@@ -10,23 +10,13 @@
 </head>
 <body>
 	<div class="container">
-	    <div class="row h-100">
-	        <div class="col-sm-12 my-auto">
-	            <div class="w-25 mx-auto main text-center">
-	            	<a href="discretos_agrupados.html">
-	            		Dados Discretos (agrupados)
-	            	</a>
+	    <div class="row">
+	        <div class="col-sm-12 my-auto label">
+            	<label for="quantidade_nao_agrupado">Quantidade</label>
+	            <div class="w-25 inputs text-center">
+	            	<input type="number" id="quantidade_nao_agrupado" name="quantidade_nao_agrupado" max="100" min="1">
 	        	</div>
-	            <div class="w-25 mx-auto main text-center">
-	            	<a href="discretos_nao_agrupados.html">
-	            		Dados Discretos <br>(não agrupados)
-	            	</a>
-	        	</div>
-	            <div class="w-25 mx-auto main text-center">
-	            	<a href="continuos.html">
-	            		Dados Contínuos
-	            	</a>
-	        	</div>
+	        	<button type="button" id="calcula_quantidade" class="btn btn-primary">OK</button>
 	        </div>
 	    </div>
 	</div>

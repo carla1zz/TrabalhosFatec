@@ -157,3 +157,27 @@ const Dados = {
     }
 
 }
+
+$(function(){
+	function mostra_inputs(quantidade){
+		var div = $(".valores-inputs")
+		for (var i = 0; i < quantidade; i++) {
+			var campo = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
+			$(div).append(campo);
+		}
+
+		$(div).show();
+		$(".valores").show();
+	}
+
+	$("#mostra_inputs").click(function(){
+ 		var quantidade = $("#quantidade_nao_agrupado").val();
+		var quantidade_atual = $(".field").length;
+
+		if((parseInt(quantidade_atual) + parseInt(quantidade)) <= 100){
+			mostra_inputs(quantidade);
+		}else{
+			alert("O número máximo de valores é 100.")
+		}
+	})
+})
