@@ -30,6 +30,19 @@ button {
 	min-width: fit-content;
 }
 
+thead {
+	background-color: #a9a9a9;
+	opacity: 0.5;
+}
+
+tbody {
+	border-color: #fafafa;
+}
+
+td {
+	color: #fafafa !important;
+}
+
 #quantidade_nao_agrupado{
 	width: 100%;
 	background-color: #919191;
@@ -135,6 +148,7 @@ button {
 
 .output{
 	min-width: max-content;
+	margin: 10px;
 }
 
 .tag-label{
