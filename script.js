@@ -21,7 +21,6 @@ const Utils = {
                     arrXiFi = new Array();
                 }
             });
-            console.log(dados);
         }
 
         return dados;
@@ -30,17 +29,21 @@ const Utils = {
 
     getDadosCont: function () {
 
+        let classes = formatarClasse();
+
+    },
+
+    formatarClasse : function () {
+
         let dados = new Array();
-        let quantidadeClasses = 3;
-        let limiteInferior = 1;
-        let amplitude = 3;
+        let quantidadeClasses = parseInt($("#quantidade_classes").val());
+        let limiteInferior = parseInt($("#limite_inferior").val());
+        let amplitude = parseInt($("#amplitude").val());
         let limiteSuperior;
-        let frequenciaClasses;
 
         for (let i = 0; i < quantidadeClasses; i++) {
             limiteSuperior = limiteInferior + amplitude;
-            frequenciaClasses = Math.floor(Math.random() * 5) + 1;
-            dados.push(new Array(limiteInferior, limiteSuperior, frequenciaClasses));
+            dados.push(new Array(limiteInferior, limiteSuperior));
             limiteInferior = limiteSuperior;
         }
 
@@ -253,13 +256,31 @@ $(function(){
     }
     
     function mostraInputsContinuos(quantidade){
-        let div = $(".valores-inputs")
+        let divValores = $(".valores-inputs");
+        let j = $(".grupo").length;
+        // console.log(j)
+
+        let classes = Utils.formatarClasse();
+
         for (let i = 0; i < quantidade; i++) {
-            let campo = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
-            $(div).append(campo);
+            let divGrupo = `<div class='grupo' id='grupo${j}'></div><br>`;
+
+            let labelValor = `<label for='valor' class='tag-label'>${classes[i][0]} |-- ${classes[i][1]}</label>`;
+
+            let campoFrequencia = `<input type='number' id='frequencia_${i}' name='frequecia' class='field fi' max='100' min='1'>`;
+
+            $(divValores).append(divGrupo);
+
+            divGrupo = $(`#grupo${j}`);
+
+            $(divGrupo).append(labelValor);
+
+            $(divGrupo).append(campoFrequencia);
+
+            j++;
         }
 
-        $(div).show();
+        $(divValores).show();
         $(".valores").show();
     }
 
@@ -280,7 +301,7 @@ $(function(){
 	})
 
     $("#mostra_inputs_agrupados").click(function(){
-        let quantidade = $("#quantidade_nao_agrupado").val();
+        let quantidade = $("#quantidade_agrupado").val();
         let quantidadeAtual = $(".field").length;
         let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
 
@@ -296,7 +317,7 @@ $(function(){
     })
 
     $("#mostra_inputs_continuos").click(function(){
-        let quantidade = $("#quantidade_nao_agrupado").val();
+        let quantidade = $("#quantidade_classes").val();
         let quantidadeAtual = $(".field").length;
         let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
 

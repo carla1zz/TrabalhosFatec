@@ -21,7 +21,7 @@
 	        <div class="col-sm-12 my-auto label">
             	<label for="quantidade_nao_agrupado">Quantidade</label>
 	            <div class="w-25 inputs text-center">
-	            	<input type="number" id="quantidade_nao_agrupado" name="quantidade_nao_agrupado" max="100" min="1">
+	            	<input type="number" id="quantidade_nao_agrupado" name="quantidade_nao_agrupado" class="input" max="100" min="1">
 	        	</div>
 	        	<button type="button" id="mostra_inputs_nao_agrupados" class="btn btn-primary">OK</button>
 	        </div>
@@ -39,52 +39,51 @@
 				>Calcular
 				</button>
 	        </div>
-	        </div>
-	    </div>
-		<div class="row row-3">
-			<div class="col-sm-12 my-auto label">
-				<div class="row">
-					<div class="col"></div>
-					<div class="col">
-						<center>
-		        			<label for="valores">Rol</label>
-							<div class="col w-25 border text-center output" id="rol">
-								Ai papai
-							</div>
-						</center>
-					</div>
-					<div class="col"></div>
+        </div>
+    </div>
+	<div class="row row-3">
+		<div class="col-sm-12 my-auto label">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col">
+					<center>
+	        			<label for="valores">Rol</label>
+						<div class="col w-25 border text-center output" id="rol">
+							Ai papai
+						</div>
+					</center>
 				</div>
-				<div class="row">
-					<div class="col"></div>
-					<div class="col">
-						<center>
-		        			<label for="valores">Média</label>
-							<div class="col w-25 border text-center output" id="media">
-								Ai papai
-							</div>
-						</center>
-					</div>
-					<div class="col"></div>
-					<div class="col">
-						<center>
-		        			<label for="valores">Desvio Padrão</label>
-							<div class="col w-25 border text-center output" id="desvio_padrao">
-								Ai papai
-							</div>
-						</center>
-					</div>
-					<div class="col"></div>
+				<div class="col"></div>
+			</div>
+			<div class="row">
+				<div class="col"></div>
+				<div class="col">
+					<center>
+	        			<label for="valores">Média</label>
+						<div class="col w-25 border text-center output" id="media">
+							Ai papai
+						</div>
+					</center>
 				</div>
+				<div class="col"></div>
+				<div class="col">
+					<center>
+	        			<label for="valores">Desvio Padrão</label>
+						<div class="col w-25 border text-center output" id="desvio_padrao">
+							Ai papai
+						</div>
+					</center>
+				</div>
+				<div class="col"></div>
 			</div>
 		</div>
-		<div class="row row-4">
-			<button
-				class="btn btn-primary"
-				id="calcular_novamente"
-				onclick="location.reload()"
-			>Calcular Novamente</button>
-		</div>
+	</div>
+	<div class="row row-4">
+		<button
+			class="btn btn-primary"
+			id="calcular_novamente"
+			onclick="location.reload()"
+		>Calcular Novamente</button>
 	</div>
 	<footer>ai papis</footer>
 </body>
