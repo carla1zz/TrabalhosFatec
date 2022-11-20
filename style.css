@@ -43,6 +43,16 @@ td {
 	color: #fafafa !important;
 }
 
+footer {
+	background-color: #636363;
+	opacity: 0.5;
+	color: #ffffff !important;
+	bottom: 0px;
+	width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
 
 #voltar {
 	margin-left: 10px;

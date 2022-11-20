@@ -29,13 +29,18 @@ const Utils = {
 
     getDadosCont: function () {
 
-        let classes = formatarClasse();
+        let classes = Utils.formatarClasse();
+        $(".field").each(function (index) {
+            classes[index].push(parseInt($(this).val()));
+        });
+
+        return classes;
 
     },
 
-    formatarClasse : function () {
+    formatarClasse: function () {
 
-        let dados = new Array();
+        let classes = new Array();
         let quantidadeClasses = parseInt($("#quantidade_classes").val());
         let limiteInferior = parseInt($("#limite_inferior").val());
         let amplitude = parseInt($("#amplitude").val());
@@ -43,11 +48,11 @@ const Utils = {
 
         for (let i = 0; i < quantidadeClasses; i++) {
             limiteSuperior = limiteInferior + amplitude;
-            dados.push(new Array(limiteInferior, limiteSuperior));
+            classes.push(new Array(limiteInferior, limiteSuperior));
             limiteInferior = limiteSuperior;
         }
 
-        return dados;
+        return classes;
 
     },
 
@@ -137,7 +142,7 @@ const Utils = {
                 grupo.forEach((valor) => {
                     if (count === 0) {
                         tr = `<tr id="tr_${trCount}"></tr>`;
-                        td = `<td>${valor}</td>`
+                        td = `<td>${valor}</td>`;
                         body.append(tr);
                         $(`#tr_${trCount}`).append(td);
                         count++;
@@ -151,6 +156,26 @@ const Utils = {
 
         } else if (tipo === "continuos") {
 
+            body = $("#body_continuos");
+            let count = 0;
+            dados.forEach((classe) => {
+                console.log(count);
+                if (count === 0) {
+                    tr = `<tr id="tr_${trCount}"></tr>`;
+                    td = `<td>${classe[0]} |-- ${classe[1]}</td>`;
+                    body.append(tr);
+                    $(`#tr_${trCount}`).append(td);
+                    count++;
+                }
+                
+                if (count === 1) {
+                    td = `<td>${classe[2]}</td>`;
+                    $(`#tr_${trCount}`).append(td);
+                    count = 0;
+                    trCount++;
+                }
+            });
+
         }
 
     }
@@ -160,9 +185,8 @@ const Utils = {
 const Dados = {
 
     discretosNaoAgrupados: function () {
-        
+         
         $(".row-2").hide();
-        $("#mostra_inputs").prop("disabled", true);
 
         let dados = Utils.getDadosDisc(agrupados=false);
         dados.sort();
@@ -181,9 +205,7 @@ const Dados = {
 
     discretosAgrupados: function () {
 
-        $(".row-1").hide();
         $(".row-2").hide();
-        $("#mostra_inputs").prop("disabled", true);
 
         let dados = Utils.getDadosDisc(agrupados=true);
         let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
@@ -201,13 +223,19 @@ const Dados = {
 
     continuos: function () {
 
+        $(".row-2").hide();
+
         let dados = Utils.getDadosCont();
         let media = Utils.calcMediaCont(dados);
         let variancia = Utils.calcVarianciaCont(dados, media);
         let desvioPadrao = Math.sqrt(variancia);
-        console.log(dados);
-        console.log(`Média: ${media.toFixed(1)}`);
-        console.log(`Desvio Padrão: ${desvioPadrao.toFixed(3)}`);
+
+        Utils.printTabela(tipo="continuos", dados);
+        $("#media").html(media.toFixed(2));
+        $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+
+        $(".row-3").show();
+        $(".row-4").show();
 
     }
 
@@ -285,17 +313,18 @@ $(function(){
     }
 
 	$("#mostra_inputs_nao_agrupados").click(function(){
- 		let quantidade = $("#quantidade_nao_agrupado").val();
+        let quantidade = $("#quantidade_nao_agrupado").val();
 		let quantidadeAtual = $(".field").length;
         let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
-
+        
         // console.log(quantidadeTotal);
-
+        
 		if(quantidadeTotal > 100) {
-			alert("O número máximo de valores é 100.");
+            alert("O número máximo de valores é 100.");
 		} else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
+            $(".row-1").hide();
 			mostraInputsNaoAgrupados(quantidade);
 		}
 	})
@@ -304,14 +333,15 @@ $(function(){
         let quantidade = $("#quantidade_agrupado").val();
         let quantidadeAtual = $(".field").length;
         let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
-
+        
         // console.log(quantidadeTotal);
-
+        
         if(quantidadeTotal > 100) {
             alert("O número máximo de valores é 100.");
         } else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
+            $(".row-1").hide();
             mostraInputsAgrupados(quantidade);
         }
     })
@@ -320,14 +350,15 @@ $(function(){
         let quantidade = $("#quantidade_classes").val();
         let quantidadeAtual = $(".field").length;
         let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
-
+        
         // console.log(quantidadeTotal);
-
+        
         if(quantidadeTotal > 100) {
             alert("O número máximo de valores é 100.");
         } else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
+            $(".row-1").hide();
             mostraInputsContinuos(quantidade);
         }
     })
@@ -347,4 +378,9 @@ $(function(){
     $("#voltar").click(function(){
         window.location.replace("index.html");
     })
+
+    $(function() {
+        $(".footer").load("footer.html");
+    })
+
 })
