@@ -135,13 +135,19 @@ const Dados = {
 
     discretosAgrupados: function () {
 
+        $(".row-2").hide();
+        $("#mostra_inputs").prop("disabled", true);
+
         let dados = Utils.getDadosDisc(agrupados=true);
         let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
         let variancia = Utils.calcVarianciaDisc(agrupados=true, dados=dados, media=media);
         let desvioPadrao = Math.sqrt(variancia);
         console.log(dados);
-        console.log(`Média: ${media.toFixed(1)}`);
-        console.log(`Desvio Padrão: ${desvioPadrao.toFixed(3)}`);
+        $("#media").html(media.toFixed(2));
+        $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+
+        $(".row-3").show();
+        $(".row-4").show();
 
     },
 
@@ -160,7 +166,7 @@ const Dados = {
 }
 
 $(function(){
-	function mostraInputs(quantidade){
+	function mostraInputsNaoAgrupados(quantidade){
 		let div = $(".valores-inputs")
 		for (let i = 0; i < quantidade; i++) {
 			let campo = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
@@ -171,7 +177,48 @@ $(function(){
 		$(".valores").show();
 	}
 
-	$("#mostra_inputs").click(function(){
+    function mostraInputsAgrupados(quantidade){
+        let divValores = $(".valores-inputs");
+        let j = $(".grupo").length;
+        console.log(j)
+        for (let i = 0; i < quantidade; i++) {
+            let divGrupo = `<div class='grupo' id='grupo${j}'></div><br>`;
+
+            let labelValor = "<label for='valor' class='tag-label'>Xi</label>";
+            let campoValor = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
+
+            let labelFrequencia = "<label for='frequencia' class='tag-label'>Fi</label>";
+            let campoFrequencia = `<input type='number' id='frequencia_${i}' name='frequecia' class='field' max='100' min='1'>`;
+
+            $(divValores).append(divGrupo);
+
+            divGrupo = $(`#grupo${j}`);
+
+            $(divGrupo).append(labelValor);
+            $(divGrupo).append(campoValor);
+
+            $(divGrupo).append(labelFrequencia);
+            $(divGrupo).append(campoFrequencia);
+
+            j++;
+        }
+
+        $(divValores).show();
+        $(".valores").show();
+    }
+    
+    function mostraInputsContinuos(quantidade){
+        let div = $(".valores-inputs")
+        for (let i = 0; i < quantidade; i++) {
+            let campo = `<input type='number' id='valor_${i}' name='valor' class='field' max='100' min='1'>`;
+            $(div).append(campo);
+        }
+
+        $(div).show();
+        $(".valores").show();
+    }
+
+	$("#mostra_inputs_nao_agrupados").click(function(){
  		let quantidade = $("#quantidade_nao_agrupado").val();
 		let quantidadeAtual = $(".field").length;
         let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
@@ -183,7 +230,55 @@ $(function(){
 		} else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
-			mostraInputs(quantidade);
+			mostraInputsNaoAgrupados(quantidade);
 		}
 	})
+
+    $("#mostra_inputs_agrupados").click(function(){
+        let quantidade = $("#quantidade_nao_agrupado").val();
+        let quantidadeAtual = $(".field").length;
+        let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
+
+        // console.log(quantidadeTotal);
+
+        if(quantidadeTotal > 100) {
+            alert("O número máximo de valores é 100.");
+        } else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
+            alert("Valor inválido! Tente outro valor.");
+        } else {
+            mostraInputsAgrupados(quantidade);
+        }
+    })
+
+    $("#mostra_inputs_continuos").click(function(){
+        let quantidade = $("#quantidade_nao_agrupado").val();
+        let quantidadeAtual = $(".field").length;
+        let quantidadeTotal = parseInt(quantidadeAtual) + parseInt(quantidade);
+
+        // console.log(quantidadeTotal);
+
+        if(quantidadeTotal > 100) {
+            alert("O número máximo de valores é 100.");
+        } else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
+            alert("Valor inválido! Tente outro valor.");
+        } else {
+            mostraInputsContinuos(quantidade);
+        }
+    })
+
+    $("#div_discretos_agrupados").click(function(){
+        window.location.replace("discretos_agrupados.html");
+    })
+
+    $("#div_discretos_nao_agrupados").click(function(){
+        window.location.replace("discretos_nao_agrupados.html");
+    })
+
+    $("#div_continuos").click(function(){
+        window.location.replace("continuos.html");
+    })
+
+    $("#voltar").click(function(){
+        window.location.replace("index.html");
+    })
 })

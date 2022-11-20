@@ -19,7 +19,6 @@ label{
 
 h1 {
 	color: #fafafa;
-	font-family: 'Segoe UI';
 	margin-top: 1rem;
 }
 
@@ -36,6 +35,10 @@ button {
 	background-color: #919191;
 	border-style: solid;
 	border-radius: 7px;
+}
+
+#voltar {
+	margin-left: 10px;
 }
 
 .row {
@@ -90,6 +93,17 @@ button {
 	font-size: 25px;
 }
 
+.border{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: default;
+	padding: 20px;
+	border: 2px solid #919191;
+	border-radius: 5px;
+	font-size: 25px;
+}
+
 .label{
 	display: block;
 	font-size: 23px;
@@ -105,7 +119,7 @@ button {
 	background-color: #919191;
 	border-style: solid;
 	border-radius: 7px;
-	margin-bottom: 10px;
+	margin: 5px;
 }
 
 .valores-inputs{
@@ -113,4 +127,16 @@ button {
 	flex-wrap: wrap;
 	max-height: 600px;
 	min-width: -webkit-fill-available;
+}
+
+.valores-agrupados{
+	flex-direction: column;
+}
+
+.output{
+	min-width: max-content;
+}
+
+.tag-label{
+	margin-left: 10px;
 }
