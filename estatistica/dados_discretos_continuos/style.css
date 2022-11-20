@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+    /*height: 100%;*/
     background-color: #262626;
 }
 
@@ -13,9 +13,22 @@ a:hover{
 	color: #fafafa;
 }
 
-
 label{
 	margin-bottom: 3px;
+}
+
+h1 {
+	color: #fafafa;
+	font-family: 'Segoe UI';
+	margin-top: 1rem;
+}
+
+hr {
+	color: #fafafa;
+}
+
+button {
+	min-width: fit-content;
 }
 
 #quantidade_nao_agrupado{
@@ -25,7 +38,19 @@ label{
 	border-radius: 7px;
 }
 
-#mostra_inputs{
+.row {
+	margin: 4rem 4rem;
+}
+
+.row-3 {
+	display: none;
+}
+
+.row-4 {
+	display: none;
+}
+
+.btn-primary {
 	border: 0;
 	border-radius: 10px;
 	margin-top: 10px;
@@ -68,7 +93,7 @@ label{
 .label{
 	display: block;
 	font-size: 23px;
-	margin-top: 4rem !important;
+	margin-top: 2rem !important;
 }
 
 .valores{
