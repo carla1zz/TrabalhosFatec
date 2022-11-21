@@ -186,56 +186,116 @@ const Dados = {
 
     discretosNaoAgrupados: function () {
          
-        $(".row-2").hide();
+        let empty = false;
 
         let dados = Utils.getDadosDisc(agrupados=false);
-        dados.sort();
-        let media = Utils.calcMediaDisc(agrupados=false, dados=dados);
-        let variancia = Utils.calcVarianciaDisc(agrupados=false, dados=dados, media=media);
-        let desvioPadrao = Math.sqrt(variancia);
-        $("#rol").html(dados);
-        $("#media").html(media.toFixed(2));
-        $("#desvio_padrao").html(desvioPadrao.toFixed(3));
 
-        $(".row-3").show();
-        $(".row-4").show();
+        dados.forEach((i) => {
+            if(isNaN([i])){
+                empty = true;
+            }
+        });
+
+        if(empty){
+            alert("Insira os dados e tente novamente.");
+        }
+
+        if(!empty){
+
+            $(".row-2").hide();
+
+            dados.sort();
+            let media = Utils.calcMediaDisc(agrupados=false, dados=dados);
+            let variancia = Utils.calcVarianciaDisc(agrupados=false, dados=dados, media=media);
+            let desvioPadrao = Math.sqrt(variancia);
+            $("#rol").html(dados);
+            $("#media").html(media.toFixed(2));
+            $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+
+            $(".row-3").show();
+            $(".row-4").show();
+            $("#corrigir").hide();
+
+        }
 
 
     },
 
     discretosAgrupados: function () {
 
-        $(".row-2").hide();
+        let empty = false;
 
         let dados = Utils.getDadosDisc(agrupados=true);
-        let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
-        let variancia = Utils.calcVarianciaDisc(agrupados=true, dados=dados, media=media);
-        let desvioPadrao = Math.sqrt(variancia);
-        
-        Utils.printTabela(tipo="agrupados", dados);
-        $("#media").html(media.toFixed(2));
-        $("#desvio_padrao").html(desvioPadrao.toFixed(3));
 
-        $(".row-3").show();
-        $(".row-4").show();
+        dados.forEach((i) => {
+            i.forEach((j) => {
+                if(isNaN([j])){
+                    empty = true;
+                }
+            })
+        });
+
+        if(empty){
+            alert("Insira os dados e tente novamente.");
+        }
+
+        if(!empty){
+
+            $(".row-2").hide();
+
+            let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
+            let variancia = Utils.calcVarianciaDisc(agrupados=true, dados=dados, media=media);
+            let desvioPadrao = Math.sqrt(variancia);
+            
+            Utils.printTabela(tipo="agrupados", dados);
+            $("#media").html(media.toFixed(2));
+            $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+
+            $(".row-3").show();
+            $(".row-4").show();
+            $("#corrigir").hide();
+
+        }
 
     },
 
     continuos: function () {
 
-        $(".row-2").hide();
 
-        let dados = Utils.getDadosCont();
-        let media = Utils.calcMediaCont(dados);
-        let variancia = Utils.calcVarianciaCont(dados, media);
-        let desvioPadrao = Math.sqrt(variancia);
+        let empty = false;
 
-        Utils.printTabela(tipo="continuos", dados);
-        $("#media").html(media.toFixed(2));
-        $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+        let dados = Utils.getDadosCont(agrupados=true);
 
-        $(".row-3").show();
-        $(".row-4").show();
+        dados.forEach((i) => {
+            i.forEach((j) => {
+                if(isNaN([j])){
+                    empty = true;
+                }
+            })
+        });
+
+
+        if(empty){
+            alert("Insira os dados e tente novamente.");
+        }
+
+        if(!empty){
+
+            $(".row-2").hide();
+
+            let media = Utils.calcMediaCont(dados);
+            let variancia = Utils.calcVarianciaCont(dados, media);
+            let desvioPadrao = Math.sqrt(variancia);
+
+            Utils.printTabela(tipo="continuos", dados);
+            $("#media").html(media.toFixed(2));
+            $("#desvio_padrao").html(desvioPadrao.toFixed(3));
+
+            $(".row-3").show();
+            $(".row-4").show();
+            $("#corrigir").hide();
+
+        }
 
     }
 
@@ -319,12 +379,13 @@ $(function(){
         
         // console.log(quantidadeTotal);
         
-		if(quantidadeTotal > 100) {
-            alert("O número máximo de valores é 100.");
+		if(quantidadeTotal > 70) {
+            alert("O número máximo de valores é 70.");
 		} else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
             $(".row-1").hide();
+            $("#corrigir").show();
 			mostraInputsNaoAgrupados(quantidade);
 		}
 	})
@@ -336,12 +397,13 @@ $(function(){
         
         // console.log(quantidadeTotal);
         
-        if(quantidadeTotal > 100) {
-            alert("O número máximo de valores é 100.");
+        if(quantidadeTotal > 24) {
+            alert("O número máximo de valores é 24.");
         } else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
             $(".row-1").hide();
+            $("#corrigir").show();
             mostraInputsAgrupados(quantidade);
         }
     })
@@ -353,12 +415,13 @@ $(function(){
         
         // console.log(quantidadeTotal);
         
-        if(quantidadeTotal > 100) {
-            alert("O número máximo de valores é 100.");
+        if(quantidadeTotal > 24) {
+            alert("O número máximo de valores é 24.");
         } else if(isNaN(quantidadeTotal) || quantidadeTotal <= 0) {
             alert("Valor inválido! Tente outro valor.");
         } else {
             $(".row-1").hide();
+            $("#corrigir").show();
             mostraInputsContinuos(quantidade);
         }
     })
@@ -379,8 +442,8 @@ $(function(){
         window.location.replace("index.html");
     })
 
-    $(function() {
-        $(".footer").load("footer.html");
-    })
+    // $(function() {
+    //     $(".footer").load("footer.html");
+    // })
 
 })

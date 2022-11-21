@@ -53,9 +53,12 @@ footer {
     justify-content: space-around;
 }
 
-
 #voltar {
 	margin-left: 10px;
+}
+
+#corrigir{
+	display: none;
 }
 
 .row {
@@ -164,4 +167,8 @@ footer {
 	background-color: #919191;
 	border-style: solid;
 	border-radius: 7px;
+}
+
+.footer{
+	position: fixed;
 }
