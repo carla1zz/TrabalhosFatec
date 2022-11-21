@@ -243,6 +243,7 @@ const Dados = {
 
             $(".row-2").hide();
 
+            dados.sort();
             let media = Utils.calcMediaDisc(agrupados=true, dados=dados);
             let variancia = Utils.calcVarianciaDisc(agrupados=true, dados=dados, media=media);
             let desvioPadrao = Math.sqrt(variancia);
