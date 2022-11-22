@@ -443,6 +443,30 @@ $(function(){
         window.location.replace("index.html");
     })
 
+    $("#caio").click(function(){
+        const audio = new Audio();
+        audio.src = "assets/ifood.mp3";
+        audio.play();
+    });
+
+    $("#carlos").click(function(){
+        const audio = new Audio();
+        audio.src = "assets/cavalo.mp3";
+        audio.play();
+    });
+
+    $("#guga").click(function(){
+        const audio = new Audio();
+        audio.src = "assets/ovo.mp3";
+        audio.play();
+    });
+
+    $("#jao").click(function(){
+        const audio = new Audio();
+        audio.src = "assets/super-idol.mp3";
+        audio.play();
+    });
+
     // $(function() {
     //     $(".footer").load("footer.html");
     // })
