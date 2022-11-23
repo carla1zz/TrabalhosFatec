@@ -3,6 +3,7 @@ const Utils = {
     getDadosDisc: function (agrupados) {
 
         let dados = new Array();
+        let arrXi = new Array();
         
         if (!agrupados) {
             $(".field").each(function (index) {
@@ -15,6 +16,7 @@ const Utils = {
                 let valor = parseInt($(this).val());
                 if ($(this).hasClass("xi")) {
                     arrXiFi.push(valor);
+                    arrXi.push(valor);
                 } else if ($(this).hasClass("fi")) {
                     arrXiFi.push(valor);
                     dados.push(arrXiFi);
@@ -22,9 +24,10 @@ const Utils = {
                 }
             });
         }
-
-        return dados;
-
+        if (!Utils.temDuplicata(arrXi)) {
+            return dados;
+        }
+        alert("Por favor não repita os valores de Xi");
     },
 
     getDadosCont: function () {
@@ -178,6 +181,10 @@ const Utils = {
 
         }
 
+    },
+
+    temDuplicata: function (lista) {
+        return new Set(lista).size !== lista.length;
     }
 
 }
@@ -405,6 +412,7 @@ $(function(){
         } else {
             $(".row-1").hide();
             $("#corrigir").show();
+            
             mostraInputsAgrupados(quantidade);
         }
     })
